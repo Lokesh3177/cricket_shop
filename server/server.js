@@ -1,39 +1,40 @@
-import express, { urlencoded } from 'express'
+import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './config/mongodb.js'
-import connectcloudinary from './config/cloudniary.js'
+import connectCloudinary from './config/cloudinary.js'
 import userRouter from './routes/userRoute.js'
-import productRoute from './routes/productRoute.js';
+import productRoute from './routes/productRoute.js'
 import cartRouter from './routes/cartRoute.js'
 import orderRouter from './routes/orderRoute.js'
 
-//App config
+const app = express()
+const port = process.env.PORT || 4000
 
-const app=express()
-const port=process.env.PORT||4000
 connectDB()
-connectcloudinary()
+connectCloudinary()
 
-
-
-// middlewares
-
+// Middlewares
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
+// API Endpoints
+app.use('/api/user', userRouter)
+app.use('/api/product', productRoute)
+app.use('/api/cart', cartRouter)
+app.use('/api/order', orderRouter)
 
-
-
-// api endpoints
-
-app.use('/api/user',userRouter)
-app.use('/api/product',productRoute)
-app.use('/api/cart',cartRouter)
-app.use('/api/order',orderRouter)
-
-app.get('/',(req,res)=>{
-    res.send("API WORKING")
+app.get('/', (req, res) => {
+  res.send('API WORKING')
 })
 
-app.listen(port,()=>console.log(`SERVER IS STARTED ON PORT`+port))
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.error(err)
+  res.status(err.status || 500).json({ message: err.message })
+})
+
+app.listen(port, () =>
+  console.log(`SERVER IS STARTED ON PORT ${port}`)
+)
