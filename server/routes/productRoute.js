@@ -1,5 +1,5 @@
 import express from 'express'
-import {listProducts,addProduct,removeProduct,singletProduct} from "../controllers/ProductController.js"
+import {listProducts,addProduct,removeProduct,singletProduct} from "../controllers/productController.js"
 import upload from '../middleware/multer.js';
 import adminAuth from '../middleware/adminAuth.js';
 
