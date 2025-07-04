@@ -68,7 +68,7 @@ function Collection() {
   // Initial sort when component mounts
   useEffect(() => {
     sortProducts();
-  }, [sortType])
+  }, [sortType,Products])
 
   return (
     <div className='flex flex-col sm:flex-row gap-10 pt-10 border-t'>
@@ -86,13 +86,13 @@ function Collection() {
           <p className='text-sm mb-3 font-medium'>Categories</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700' >
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Bats'} onChange={togglecategory} /> Bats
+              <input type="checkbox" className='w-3' value={'Bat'} onChange={togglecategory} /> Bat
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Gloves'} onChange={togglecategory} /> Gloves
+              <input type="checkbox" className='w-3' value={'Glove'} onChange={togglecategory} /> Glove
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Pads'} onChange={togglecategory} /> Pads
+              <input type="checkbox" className='w-3' value={'pad'} onChange={togglecategory}  /> pad
             </p>
 
 
@@ -104,22 +104,22 @@ function Collection() {
           <p className='text-sm mb-3 font-medium'>Sub Categories</p>
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700' >
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Bats'} onChange={togglesubCategory} /> Bats
+              <input type="checkbox" className='w-3' value={'Bat'} onChange={togglesubCategory} /> Bat
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Batting Gloves'} onChange={togglesubCategory} /> Batting Gloves
+              <input type="checkbox" className='w-3' value={'Batting Glove'} onChange={togglesubCategory} /> Batting Glove
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Batting Pads'} onChange={togglesubCategory} /> Batting Pads
+              <input type="checkbox" className='w-3' value={'Batting Pad'} onChange={togglesubCategory} /> Batting Pad
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Keeper Pads'} onChange={togglesubCategory} /> Keeper Pads
+              <input type="checkbox" className='w-3' value={'Keeper Pad'} onChange={togglesubCategory} /> Keeper Pad
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Keeper Gloves'} onChange={togglesubCategory} /> Keeper Gloves
+              <input type="checkbox" className='w-3' value={'Keeper Glove'} onChange={togglesubCategory} /> Keeper Glove
             </p>
             <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'Batting Helmets'} onChange={togglesubCategory} /> Batting Helmets
+              <input type="checkbox" className='w-3' value={'Batting Helmet'} onChange={togglesubCategory} /> Batting Helmet
             </p>
 
 
