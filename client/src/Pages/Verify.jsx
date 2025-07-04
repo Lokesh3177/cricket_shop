@@ -31,6 +31,7 @@ const Verify = () => {
     } catch (error) {
       console.error(error);
       toast.error(error.message || "Something went wrong");
+      navigate('/cart');
     }
   };
 
