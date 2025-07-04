@@ -39,7 +39,7 @@ const Verify = () => {
     
       verifyPayment();
     
-  }, [token]);
+  }, []);
   
 
   return <div>Verifying payment...</div>;
