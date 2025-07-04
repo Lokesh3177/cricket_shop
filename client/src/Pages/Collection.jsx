@@ -91,8 +91,11 @@ function Collection() {
             <p className='flex gap-2'>
               <input type="checkbox" className='w-3' value={'Glove'} onChange={togglecategory} /> Glove
             </p>
-            <p className='flex gap-2'>
-              <input type="checkbox" className='w-3' value={'pad'} onChange={togglecategory}  /> pad
+             <p className='flex gap-2'>
+              <input type="checkbox" className='w-3' value={'Pad'} onChange={togglecategory} /> Pad
+            </p>
+              <p className='flex gap-2'>
+              <input type="checkbox" className='w-3' value={'Helmet'} onChange={togglecategory} /> Helmet
             </p>
 
 
