@@ -11,14 +11,31 @@ import orderRouter from './routes/orderRoute.js'
 const app = express()
 const port = process.env.PORT || 4000
 
-// Connect to Database before starting server
-await connectDB()
-await connectCloudinary()
+let isConnected = false
+
+// Initialize connections
+const initializeConnections = async () => {
+  if (!isConnected) {
+    try {
+      await connectDB()
+      await connectCloudinary()
+      isConnected = true
+    } catch (error) {
+      console.error('Failed to initialize connections:', error)
+    }
+  }
+}
 
 // Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+
+// Initialize before routing
+app.use(async (req, res, next) => {
+  await initializeConnections()
+  next()
+})
 
 // API Endpoints
 app.use('/api/user', userRouter)
@@ -39,3 +56,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () =>
   console.log(`SERVER IS STARTED ON PORT ${port}`)
 )
+
+export default app
