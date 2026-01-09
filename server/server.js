@@ -12,7 +12,7 @@ import orderRouter from './routes/orderRoute.js'
 const app = express()
 const port = process.env.PORT || 4000
 
-// 🔥 Connect services ONCE at startup
+// Connect services
 connectDB()
 connectCloudinary()
 
@@ -20,14 +20,17 @@ connectCloudinary()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// ✅ CORS for localhost frontend
 app.use(
   cors({
-    origin: 'http://localhost:5173',
-     "https://cricket-shop-client.vercel.app",
-    credentials: true,
+    origin: [
+      "http://localhost:5173",
+      "https://cricket-shop-client.vercel.app"
+    ],
+    credentials: true
   })
-)
+);
+
+
 
 // Routes
 app.use('/api/user', userRouter)
@@ -37,12 +40,6 @@ app.use('/api/order', orderRouter)
 
 app.get('/', (req, res) => {
   res.send('API WORKING')
-})
-
-// Global Error Handler
-app.use((err, req, res, next) => {
-  console.error(err)
-  res.status(err.status || 500).json({ message: err.message })
 })
 
 app.listen(port, () => {
