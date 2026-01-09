@@ -3,6 +3,7 @@ import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './config/mongodb.js'
 import connectCloudinary from './config/cloudinary.js'
+
 import userRouter from './routes/userRoute.js'
 import productRoute from './routes/productRoute.js'
 import cartRouter from './routes/cartRoute.js'
@@ -11,33 +12,23 @@ import orderRouter from './routes/orderRoute.js'
 const app = express()
 const port = process.env.PORT || 4000
 
-let isConnected = false
-
-// Initialize connections
-const initializeConnections = async () => {
-  if (!isConnected) {
-    try {
-      await connectDB()
-      await connectCloudinary()
-      isConnected = true
-    } catch (error) {
-      console.error('Failed to initialize connections:', error)
-    }
-  }
-}
+// 🔥 Connect services ONCE at startup
+connectDB()
+connectCloudinary()
 
 // Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
 
-// Initialize before routing
-app.use(async (req, res, next) => {
-  await initializeConnections()
-  next()
-})
+// ✅ CORS for localhost frontend
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+)
 
-// API Endpoints
+// Routes
 app.use('/api/user', userRouter)
 app.use('/api/product', productRoute)
 app.use('/api/cart', cartRouter)
@@ -53,8 +44,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message })
 })
 
-app.listen(port, () =>
+app.listen(port, () => {
   console.log(`SERVER IS STARTED ON PORT ${port}`)
-)
+})
 
 export default app
