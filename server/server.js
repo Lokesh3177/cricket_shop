@@ -20,20 +20,22 @@ connectCloudinary()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+
+
 app.use(
   cors({
     origin: [
       "https://cricket-shop-client.vercel.app",
       "https://cricket-shop-admin.vercel.app",
-      "https://cricket-shop-admin.onrender.com",
       "http://localhost:5173",
       "http://localhost:5174"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "token", "Authorization"],
     credentials: true
   })
 );
+
 
 
 
