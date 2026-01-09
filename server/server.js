@@ -23,15 +23,17 @@ app.use(express.urlencoded({ extended: true }))
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",                 // local frontend
-      "http://localhost:5174",                 // local admin (if any)
-      "https://cricket-shop-client.vercel.app",// client prod
-      "https://cricket-shop-admin.onrender.com"// admin prod
+      "https://cricket-shop-client.vercel.app",
+      "https://cricket-shop-admin.onrender.com",
+      "http://localhost:5173",
+      "http://localhost:5174"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "token", "Authorization"],
     credentials: true
   })
 );
+
 
 
 
