@@ -24,6 +24,7 @@ app.use(
   cors({
     origin: [
       "https://cricket-shop-client.vercel.app",
+      "https://cricket-shop-admin.vercel.app",
       "https://cricket-shop-admin.onrender.com",
       "http://localhost:5173",
       "http://localhost:5174"
