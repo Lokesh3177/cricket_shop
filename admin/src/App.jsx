@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './Components/Navbar'
 import SideBar from './Components/SideBar'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import Add from './Pages/Add'
 import List from './Pages/List'
 import Orders from './Pages/Orders'
@@ -32,12 +32,23 @@ const App = () => {
               <div className='w-full flex'>
                 <SideBar />
                 <div className='w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base'>
-                  <Routes>
-                    <Route path="/" element={<Navigate to="/list" />} />
-                    <Route path="/add" element={<Add token={token} />} />
-                    <Route path="/list" element={<List token={token} />} />
-                    <Route path="/orders" element={<Orders token={token} />} />
-                  </Routes>
+                  <Switch>
+                    <Route exact path="/">
+                      <Redirect to="/list" />
+                    </Route>
+
+                    <Route path="/add">
+                      <Add token={token} />
+                    </Route>
+
+                    <Route path="/list">
+                      <List token={token} />
+                    </Route>
+
+                    <Route path="/orders">
+                      <Orders token={token} />
+                    </Route>
+                  </Switch>
                 </div>
               </div>
             </>
