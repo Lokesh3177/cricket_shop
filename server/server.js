@@ -18,8 +18,7 @@ connectCloudinary()
 
 const corsOptions = {
     origin: [
-      "https://cricket-shop-client.vercel.app",
-      "https://cricket-shop-admin.vercel.app",
+      "https://cricket-shop-five.vercel.app", 
       "http://localhost:5173",
       "http://localhost:5174"
     ],
