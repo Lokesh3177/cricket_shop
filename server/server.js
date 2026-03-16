@@ -16,14 +16,7 @@ const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
-// Middlewares
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-
-
-app.use(
-  cors({
+const corsOptions = {
     origin: [
       "https://cricket-shop-client.vercel.app",
       "https://cricket-shop-admin.vercel.app",
@@ -33,13 +26,17 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "token", "Authorization"],
     credentials: true
-  })
-);
+}
 
+// ✅ CORS first — before everything
+app.use(cors(corsOptions))
 
+// ✅ Handle preflight requests
+app.options('*', cors(corsOptions))
 
-
-
+// Middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 // Routes
 app.use('/api/user', userRouter)
