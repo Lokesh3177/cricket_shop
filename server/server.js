@@ -17,9 +17,10 @@ connectDB()
 connectCloudinary()
 
 const corsOptions = {
-    origin: [
-      '*',
-    ],
+    origin:function(origin,callback) {
+      callback(null, true)
+      
+},
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "token", "Authorization"],
     credentials: true
