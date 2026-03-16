@@ -18,9 +18,7 @@ connectCloudinary()
 
 const corsOptions = {
     origin: [
-      "https://cricket-shop-five.vercel.app", 
-      "http://localhost:5173",
-      "http://localhost:5174"
+      '*',
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "token", "Authorization"],
