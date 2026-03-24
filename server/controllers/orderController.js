@@ -4,12 +4,14 @@ import userModel from '../models/userModel.js';
 import Stripe from 'stripe'
 import razorPay from 'razorpay'
 
-// global variables
+
 const currency = 'usd'
 const deliveryCharge = 10
+const razorpayCurrency = 'inr'
+const USD_TO_INR = 84
 
 
-//
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const razorPayInstance = new razorPay({
     key_id: process.env.RAZOR_PAY_KEY_ID,
@@ -19,7 +21,6 @@ const razorPayInstance = new razorPay({
 })
 
 
-// placing orders using Cod method
 
 const placeOrder = async (req, res) => {
     try {
@@ -52,7 +53,7 @@ const placeOrder = async (req, res) => {
 
 }
 
-// placing orders using Stripe method
+
 
 const placeOrderStripe = async (req, res) => {
     try {
@@ -110,7 +111,7 @@ const placeOrderStripe = async (req, res) => {
     }
 
 }
-// verify Stripe
+
 
 const verifyStripe = async (req, res) => {
     const { orderId, success, userId } = req.body;
@@ -132,7 +133,7 @@ const verifyStripe = async (req, res) => {
 }
 
 
-// placing orders using RazorPay method
+
 
 const placeOrderRazorPay = async (req, res) => {
     try {
@@ -145,36 +146,33 @@ const placeOrderRazorPay = async (req, res) => {
             address,
             paymentMethod: "Razorpay",
             payment: false,
-
             date: Date.now(),
         }
         const newOrder = new orderModel(orderData)
         await newOrder.save();
+
         const options = {
-            amount: amount * 100,
-            currency: currency.toUpperCase(),
+            amount: Math.round(amount *84) * 100,
+            currency: 'INR',                        
             receipt: newOrder._id.toString()
         }
+        console.log('Razorpay amount in paise:', options.amount)
 
         await razorPayInstance.orders.create(options, (error, order) => {
             if (error) {
                 console.log(error);
                 return res.json({ success: false, message: error })
-
-
             }
             res.json({ success: true, order })
-
         })
+
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message })
-
     }
-
 }
 
-// All order data for admin panel
+
 
 const allOrders = async (req, res) => {
 
@@ -187,7 +185,7 @@ const allOrders = async (req, res) => {
     }
 }
 
-// user order for frontend
+
 
 const userOrder = async (req, res) => {
     try {
@@ -202,7 +200,7 @@ const userOrder = async (req, res) => {
 
 }
 
-// update order status for admin panel
+
 
 const updateStatus = async (req, res) => {
     try {
@@ -217,7 +215,7 @@ const updateStatus = async (req, res) => {
     }
 }
 
-// verify Razor pay
+
 const verifyRazorpay = async (req, res) => {
     try {
         const { userId, razorpay_order_id } = req.body;

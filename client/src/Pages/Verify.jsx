@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { ShopContext } from '../Context/ShopContext';
@@ -7,7 +6,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Verify = () => {
-  const { token, setCartItems, backendUrl, } = useContext(ShopContext);
+  const { token, setCartItems, backendUrl, userId } = useContext(ShopContext); 
   const [searchparams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -16,9 +15,11 @@ const Verify = () => {
 
   const verifyPayment = async () => {
     try {
+      if (!token) return;
+
       const response = await axios.post(
         backendUrl + '/api/order/verifyStripe',
-        { success, orderId, },
+        { success, orderId, userId }, 
         { headers: { token } }
       );
 
@@ -35,14 +36,16 @@ const Verify = () => {
     }
   };
 
-  useEffect(() => {
-    
-      verifyPayment();
-    
-  }, []);
   
+  useEffect(() => {
+    if (token) verifyPayment();
+  }, [token]); 
 
-  return <div>Verifying payment...</div>;
+  return (
+    <div className='flex justify-center items-center min-h-[60vh]'>
+      <p className='text-lg'>Verifying payment... Please wait</p>
+    </div>
+  );
 };
 
 export default Verify;
