@@ -1,4 +1,4 @@
-🏏 Cricket Shop
+🏏 **Cricket Shop**
 
 A full-stack e-commerce web application for browsing cricket products, managing products through an admin interface, handling user accounts, shopping carts, orders, and payment workflows.
 
@@ -10,15 +10,15 @@ Admin frontend
 
 Node.js / Express backend
 
-Overview
+**Overview**
 
 Cricket Shop is a MERN-based e-commerce application built to demonstrate practical full-stack development using React.js, Node.js, Express.js, and MongoDB.
 
 The project includes user authentication, product management, shopping cart functionality, order management, image uploads, cloud storage, and payment integrations.
 
-Features
+**Features**
 
-Customer Features
+**Customer Features**
 
 User registration and login
 
@@ -76,7 +76,7 @@ Razorpay integration
 
 MongoDB database integration
 
-Tech Stack
+**Tech Stack**
 
 Frontend
 
@@ -132,7 +132,7 @@ Postman
 
 VS Code
 
-Project Structure
+**Project Structure**
 
 cricket_shop/
 │
@@ -148,7 +148,7 @@ cricket_shop/
 │
 └── .gitignore
 
-Architecture
+**Architecture**
 
 Customer Frontend (React.js)
            │
@@ -166,7 +166,7 @@ Admin Frontend (React.js)
            ▼
 Express Backend
 
-Backend Architecture
+**Backend Architecture**
 
 The backend is organized into separate modules:
 
@@ -184,7 +184,7 @@ server.js - Express server setup
 
 Authentication
 
-The application uses:
+**The application uses:**
 
 JWT for authentication
 
@@ -278,7 +278,7 @@ Cloudinary
 
 The backend processes uploaded images and uses Cloudinary for cloud-based image storage.
 
-Environment Variables
+**Environment Variables**
 
 Sensitive credentials should be stored in environment variables.
 
@@ -295,7 +295,7 @@ RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 
 Never commit real credentials, API keys, or secrets to GitHub.
 
-Installation
+**Installation**
 
 1. Clone the repository
 
