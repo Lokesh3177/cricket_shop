@@ -1,148 +1,89 @@
-🏏 Cricket Shop
-
-A full-stack MERN e-commerce application for browsing cricket products,
-managing products through an admin interface, handling user accounts,
-shopping carts, orders, image uploads, and payment workflows.
-
-Portfolio note: This project is presented as a learning and
-portfolio project. Payment, authorization, validation, and other
-security-sensitive areas can be further hardened before production
-use.
-
-📌 Overview
-
-Cricket Shop is organized into three main applications:
-
-Customer Frontend --- React application for customers
-
-Admin Frontend --- React application for product and order
-administration
-
-Backend API --- Node.js + Express.js REST API connected to
-MongoDB
-
-The project demonstrates practical full-stack development with
-authentication, CRUD operations, database persistence, file/image
-uploads, cart management, order management, and payment-provider
-integrations.
-
-✨ Features
-
-👤 Customer Features
-
-User registration and login
-
-JWT-based authentication
-
-Browse cricket products
-
-View product details
-
-Add products to cart
-
-Update cart quantities and sizes
-
-Place orders
-
-View user orders
-
-Online payment workflow
-
-Toast notifications and frontend feedback
-
-🛠️ Admin Features
-
-Admin login
-
-Add products
-
-Upload multiple product images
-
-Remove products
-
-View products
-
-View customer orders
-
-Update order status
-
-🛒 E-Commerce Features
-
-Product catalog
-
-Product categories and subcategories
-
-Product sizes
-
-Bestseller products
-
-Shopping cart
-
-Order creation and tracking
-
-Payment integration
-
-Product image storage
-
-🧰 Tech Stack
-
-Frontend
-
-React
-
-JavaScript
-
-React Router
-
-Axios
-
-Tailwind CSS
-
-React Toastify
-
-Vite
-
-Backend
-
-Node.js
-
-Express.js
-
-REST API
-
-JWT
-
-bcryptjs
-
-Multer
-
-dotenv
-
-CORS
-
-Validator
-
-Database
-
-MongoDB
-
-Mongoose
-
-Cloud & Integrations
-
-Cloudinary --- product image storage
-
-Stripe --- payment integration
-
-Razorpay --- payment integration
-
-Vercel --- backend deployment
-
-🏗️ Project Architecture
-
-Cricket Shop
+# 🏏 Cricket Shop
+
+**A full-stack MERN e-commerce application for cricket products**
+
+Cricket Shop is a portfolio project built with React, Node.js, Express.js, and MongoDB. It includes separate customer and admin applications with authentication, product management, cart management, orders, image uploads, and payment integrations.
+
+> **Project status:** Portfolio / learning project. Security-sensitive areas such as server-side order validation and payment verification can be further hardened before production use.
+
+## 📌 Overview
+
+The project is divided into three applications:
+
+- **Customer Frontend** — React application for browsing products, managing the cart, and placing orders.
+- **Admin Frontend** — React application for managing products and customer orders.
+- **Backend API** — Node.js + Express.js REST API connected to MongoDB.
+
+### High-Level Architecture
+
+```text
+Customer App (React) ──────┐
+                           │
+                           ▼
+                      Express API
+                           │
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+           MongoDB      Cloudinary   Payments
+           /Mongoose      Images     Stripe/Razorpay
+              ▲
+              │
+Admin App ─────┘
+   (React)
+```
+
+## ✨ Features
+
+### 👤 Customer
+
+- User registration and login
+- JWT-based authentication
+- Browse cricket products
+- View product details
+- Add products to cart
+- Update cart quantities and sizes
+- Place orders
+- View user orders
+- Payment workflow
+- Toast notifications
+
+### 🛠️ Admin
+
+- Admin authentication
+- Add products
+- Upload multiple product images
+- Remove products
+- View products
+- View customer orders
+- Update order status
+
+### 🛒 E-Commerce
+
+- Product categories and subcategories
+- Product sizes
+- Bestseller products
+- Shopping cart
+- Order management
+- Product image uploads
+- Stripe integration
+- Razorpay integration
+
+## 🧰 Tech Stack
+
+| Area | Technologies |
+|---|---|
+| Frontend | React, JavaScript, React Router, Axios, Tailwind CSS, React Toastify, Vite |
+| Backend | Node.js, Express.js, REST API, JWT, bcryptjs, Multer, dotenv, CORS, Validator |
+| Database | MongoDB, Mongoose |
+| Services | Cloudinary, Stripe, Razorpay |
+| Deployment | Vercel |
+
+## 📁 Project Structure
+
+```text
+cricket_shop/
 │
-├── client/                  # Customer-facing React application
+├── client/                 # Customer React application
 │   └── src/
 │       ├── Components/
 │       ├── Context/
@@ -152,7 +93,7 @@ Cricket Shop
 │       ├── index.css
 │       └── main.jsx
 │
-├── admin/                   # Admin React application
+├── admin/                  # Admin React application
 │   └── src/
 │       ├── Components/
 │       ├── Pages/
@@ -161,7 +102,7 @@ Cricket Shop
 │       ├── index.css
 │       └── main.jsx
 │
-├── server/                  # Node.js / Express backend
+├── server/                 # Express backend
 │   ├── config/
 │   ├── controllers/
 │   ├── middleware/
@@ -172,278 +113,146 @@ Cricket Shop
 │
 ├── .gitignore
 └── README.md
+```
 
-🔄 Application Flow
+## 🔐 Authentication
 
-                         ┌─────────────────────┐
-                         │   Customer Browser  │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │  React Client App   │
-                         │      /client        │
-                         └──────────┬──────────┘
-                                    │
-                              HTTP / REST
-                                    │
-                                    ▼
-                    ┌──────────────────────────────┐
-                    │      Express.js API          │
-                    │          /server              │
-                    └──────────────┬───────────────┘
-                                   │
-             ┌─────────────────────┼─────────────────────┐
-             │                     │                     │
-             ▼                     ▼                     ▼
-      ┌─────────────┐      ┌──────────────┐     ┌──────────────┐
-      │   MongoDB   │      │  Cloudinary  │     │   Payments   │
-      │  / Mongoose │      │    Images    │     │ Stripe/Razorpay│
-      └─────────────┘      └──────────────┘     └──────────────┘
+Customer authentication uses **JWT** and **bcryptjs**.
 
+### Authentication Flow
 
-                         ┌─────────────────────┐
-                         │    Admin Browser    │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │ React Admin App     │
-                         │      /admin         │
-                         └──────────┬──────────┘
-                                    │
-                              HTTP / REST
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │   Express.js API    │
-                         └─────────────────────┘
-
-🔐 Authentication
-
-The backend implements authentication using:
-
-JWT for token-based authentication
-
-bcryptjs for password hashing
-
-Authentication middleware for protected routes
-
-Separate admin authentication middleware
-
-Customer Authentication Flow
-
+```text
 Register / Login
-      ↓
+       ↓
 Validate credentials
-      ↓
-Password verification / hashing
-      ↓
-JWT generated
-      ↓
-Client stores token
-      ↓
-Protected requests include token
-      ↓
+       ↓
+Hash / verify password
+       ↓
+Generate JWT
+       ↓
+Client sends token with protected requests
+       ↓
 Authentication middleware verifies token
+       ↓
+Protected controller executes
+```
 
-📦 Backend Structure
+The backend contains separate middleware for customer authentication and admin authorization.
 
-The Express backend is separated into common application layers.
+## 🔌 REST API
 
-Routes
+The backend is organized into four main route groups:
 
-/api/user
-/api/product
-/api/cart
-/api/order
+| Route | Purpose |
+|---|---|
+| `/api/user` | Registration, login, and authentication |
+| `/api/product` | Product management and product retrieval |
+| `/api/cart` | Authenticated cart operations |
+| `/api/order` | Orders and payment workflows |
 
-Controllers
+The server follows a route → middleware → controller → model structure.
 
-userController.js
-productController.js
-cartController.js
-orderController.js
+## 🛍️ Product Management
 
-Controllers contain the main application/business operations for users,
-products, carts, and orders.
+Products are stored in MongoDB through Mongoose.
 
-Middleware
+A product includes fields such as:
 
-auth.js
-adminAuth.js
-multer.js
+- Name
+- Description
+- Price
+- Images
+- Category
+- Subcategory
+- Sizes
+- Bestseller status
+- Date
 
-Middleware is used for authentication, admin authorization, and file
-uploads.
+The admin frontend sends product data and images to the backend. Images are processed through Multer and uploaded to Cloudinary.
 
-Models
+## 🛒 Cart Management
 
-ProductModel.js
-userModel.js
-orderModel.js
+Authenticated customers can:
 
-Mongoose models define the application's MongoDB data structures.
+1. Select a product.
+2. Select a size where applicable.
+3. Add the product to the cart.
+4. Update quantities.
+5. Continue to checkout.
 
-🛍️ Product Management
+Cart data is associated with the authenticated user and persisted through the backend.
 
-The admin application communicates with the backend to manage products.
+## 📦 Order Management
 
-A product contains information such as:
+### Customer
 
-Name
+- Create an order
+- Select a payment method
+- View their orders
+- Complete the payment workflow
 
-Description
+### Admin
 
-Price
+- View customer orders
+- Update order status
 
-Images
+Order records contain information such as the user, items, amount, address, payment method, payment status, order status, and date.
 
-Category
+## 💳 Payment Integration
 
-Subcategory
+The project includes integrations with:
 
-Sizes
+- **Stripe**
+- **Razorpay**
 
-Bestseller status
+These integrations demonstrate how third-party payment services can be connected to an Express-based e-commerce application.
 
-Creation date
+### Security Improvements Identified
 
-Product images are uploaded through the backend and stored using
-Cloudinary.
+Payment and order processing are security-sensitive. The current implementation can be improved by:
 
-🛒 Cart Management
+- Recalculating order totals on the server from database prices.
+- Avoiding trust in client-supplied prices and totals.
+- Verifying payment results directly with the payment provider.
+- Using provider webhooks where appropriate.
+- Checking order ownership during payment verification.
+- Preventing duplicate or replayed payment operations.
 
-Authenticated users can manage their shopping cart.
+These are intentional improvement areas that can also be discussed during technical interviews.
 
-The cart workflow includes:
+## 🖼️ Image Uploads
 
-User authentication
+Product images follow this flow:
 
-Product selection
+```text
+Admin Frontend
+      ↓
+Express API
+      ↓
+Multer
+      ↓
+Cloudinary
+      ↓
+Image URL stored with product
+```
 
-Product/size added to cart
+Multiple product images can be uploaded when creating a product.
 
-Cart quantity updated
-
-Cart persisted for the authenticated user
-
-Cart used during order creation
-
-📦 Order Management
-
-The application supports order workflows for both customers and
-administrators.
-
-Customer
-
-Place an order
-
-View their orders
-
-Complete a payment workflow
-
-Admin
-
-View customer orders
-
-Update order status
-
-Order data includes information such as:
-
-User
-
-Ordered items
-
-Amount
-
-Delivery address
-
-Payment method
-
-Payment status
-
-Order status
-
-Order date
-
-💳 Payment Integration
-
-The backend contains integrations for:
-
-Stripe
-
-Razorpay
-
-The project demonstrates the integration of external payment providers
-into an Express-based e-commerce backend.
-
-Important Security Note
-
-Payment processing is security-sensitive. A production implementation
-should additionally ensure that:
-
-Order totals are recalculated and validated on the server
-
-Product prices are obtained from the database rather than trusted
-from the client
-
-Payment status is verified directly with the payment provider
-
-Webhooks are used where appropriate
-
-Users can only verify or access their own orders
-
-Payment requests cannot be replayed or manipulated
-
-These are identified improvement areas for the current portfolio
-implementation.
-
-🖼️ Image Uploads
-
-Product images are handled using:
-
-Multer → Express Backend → Cloudinary
-
-The admin can upload multiple product images when adding a product.
-
-Cloudinary provides cloud-based storage for the uploaded product images.
-
-🌐 Deployment
+## 🌐 Deployment
 
 The backend is deployed on Vercel:
 
-Backend
+**Backend:** https://cricket-shop-server-self.vercel.app
 
-https://cricket-shop-server-self.vercel.app
+> Deployment availability may change over time.
 
-The repository also contains deployment history for the project.
+## ⚙️ Environment Variables
 
-Deployment availability can change over time. The URL above represents
-the deployment configured for this repository.
+The application requires environment variables for database, authentication, cloud storage, payment, and admin configuration.
 
-⚙️ Environment Variables
+Example structure:
 
-The application requires environment variables for sensitive
-configuration such as:
-
-MongoDB connection
-
-JWT secret
-
-Cloudinary credentials
-
-Stripe credentials
-
-Razorpay credentials
-
-Admin credentials
-
-Example
-
-Create environment files locally and provide the values required by the
-corresponding configuration files.
-
+```env
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 
@@ -455,257 +264,180 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+```
 
-Never commit real credentials, API keys, database URLs, or secrets
-to GitHub.
+**Never commit real credentials, API keys, database URLs, or secrets to GitHub.**
 
-🚀 Local Setup
+## 🚀 Local Setup
 
-1. Clone the repository
+### 1. Clone the repository
 
+```bash
 git clone https://github.com/Lokesh3177/cricket_shop.git
 cd cricket_shop
+```
 
-2. Install backend dependencies
+### 2. Start the backend
 
+```bash
 cd server
 npm install
-
-3. Configure backend environment variables
-
-Create the required environment file and add your local credentials.
-
-4. Start the backend
-
 npm run server
+```
 
-The backend uses the Express server defined in server.js.
+### 3. Start the customer frontend
 
-5. Install customer frontend dependencies
+Open a new terminal:
 
-Open another terminal:
-
+```bash
 cd client
 npm install
 npm run dev
+```
 
-6. Install admin frontend dependencies
+### 4. Start the admin frontend
 
 Open another terminal:
 
+```bash
 cd admin
 npm install
 npm run dev
+```
 
-🧪 Available Scripts
+Make sure the required environment variables are configured before starting the applications.
 
-Client
+## 🧪 Available Scripts
 
+### Client
+
+```bash
 npm run dev
 npm run build
 npm run lint
 npm run preview
+```
 
-Admin
+### Admin
 
+```bash
 npm run dev
 npm run build
 npm run lint
 npm run preview
+```
 
-Server
+### Server
 
+```bash
 npm start
 npm run server
+```
 
-🔌 API Areas
-
-The backend is organized around four primary API areas:
-
-API Area                            Purpose
-
-/api/user                         Registration, login, and user
-authentication
-
-/api/product                      Product creation, removal, listing,
-and retrieval
-
-/api/cart                         Authenticated cart operations
-
-🧠 What This Project Demonstrates
+## 🧠 Engineering Concepts Demonstrated
 
 This project demonstrates practical experience with:
 
-Building a MERN stack application
+- MERN stack application structure
+- React component-based development
+- REST API development
+- Express middleware
+- MongoDB and Mongoose
+- JWT authentication
+- Password hashing with bcrypt
+- Protected routes
+- Customer/admin separation
+- CRUD operations
+- Cart and order workflows
+- File uploads
+- Cloudinary integration
+- Payment-provider integration
+- Deployment
 
-Structuring a full-stack project
+## ⚠️ Current Technical Improvement Areas
 
-Creating REST APIs with Express
+The project is intentionally documented honestly as a portfolio/learning implementation.
 
-Connecting Node.js to MongoDB with Mongoose
+### Security
 
-Implementing authentication with JWT
+- Restrict CORS to trusted frontend origins.
+- Add JWT expiration and stronger token handling.
+- Improve admin authorization with explicit roles/claims.
+- Add file type and file-size validation.
+- Avoid trusting client-provided order totals.
+- Strengthen payment verification.
 
-Hashing passwords with bcrypt
+### Backend
 
-Creating protected routes
+- Add centralized error handling.
+- Use consistent HTTP status codes.
+- Improve request validation.
+- Strengthen MongoDB schemas.
+- Add pagination and filtering for product listings.
 
-Separating customer and admin interfaces
+### Testing & DevOps
 
-Implementing CRUD operations
+- Add unit and integration tests.
+- Add API test coverage.
+- Add GitHub Actions CI checks.
+- Improve production logging and monitoring.
 
-Managing shopping-cart state
+## 🔮 Future Improvements
 
-Creating order workflows
+- Server-side order price calculation
+- Secure payment verification and webhooks
+- Role-based authorization
+- Stronger validation and error handling
+- Product pagination and filtering
+- Inventory and stock management
+- Automated testing
+- CI/CD pipeline
+- Better logging and monitoring
 
-Integrating third-party services
+## 🎯 Interview Preparation
 
-Uploading and storing images
+This project provides useful discussion points for a MERN/full-stack interview:
 
-Working with payment providers
+- Why did you choose the MERN stack?
+- How is the application divided into client, admin, and server?
+- How does JWT authentication work?
+- How are protected routes implemented?
+- How does admin authorization work?
+- How is cart data stored?
+- How are MongoDB models designed?
+- How does Multer + Cloudinary image upload work?
+- How does the order workflow work?
+- How were Stripe and Razorpay integrated?
+- Why should order totals be calculated on the server?
+- How would you secure payment verification?
+- How would you prevent users from accessing another user's order?
+- How would you improve CORS?
+- How would you add automated testing?
+- How would you implement pagination and inventory management?
 
-Deploying a backend application
-
-⚠️ Current Limitations & Improvement Areas
-
-The project is functional as a portfolio implementation, but several
-areas can be strengthened before production use.
-
-Security
-
-Restrict CORS to trusted frontend origins
-
-Add JWT expiration and stronger token handling
-
-Improve admin authorization using explicit roles/claims
-
-Add stricter file type and file-size validation
-
-Avoid trusting client-provided order totals
-
-Strengthen payment verification and use provider webhooks where
-appropriate
-
-Backend Quality
-
-Add centralized error handling
-
-Use consistent HTTP status codes
-
-Improve request validation
-
-Strengthen MongoDB schema definitions
-
-Add pagination and filtering for product listings
-
-Testing & DevOps
-
-Add unit and integration tests
-
-Add API testing coverage
-
-Add CI checks with GitHub Actions
-
-Add stronger production logging and monitoring
-
-🔮 Future Improvements
-
-Planned technical improvements include:
-
-Server-side price calculation
-
-Secure payment verification/webhooks
-
-Role-based authorization
-
-Better validation and error handling
-
-Product pagination and filtering
-
-Inventory/stock management
-
-Automated testing
-
-CI/CD pipeline
-
-Improved observability and logging
-
-📚 Key Learning Outcomes
+## 📚 Key Learning Outcomes
 
 Through this project, I gained practical experience in:
 
-Designing a multi-part MERN application
+1. Building a multi-part MERN application.
+2. Connecting React applications to REST APIs.
+3. Designing MongoDB models with Mongoose.
+4. Implementing authentication and protected routes.
+5. Managing cart and order workflows.
+6. Integrating cloud storage and payment services.
+7. Separating customer and administrative functionality.
+8. Deploying a backend application.
+9. Identifying security and business-logic improvements.
 
-Connecting React applications to REST APIs
+## 👨‍💻 Author
 
-Designing MongoDB models with Mongoose
-
-Implementing authentication and protected routes
-
-Managing user carts and order workflows
-
-Integrating external cloud and payment services
-
-Separating customer and administrative functionality
-
-Deploying a backend application
-
-Identifying security and business-logic improvements in a real
-application
-
-🎯 Interview Talking Points
-
-This project can be discussed around the following engineering topics:
-
-Why React, Node.js, Express, and MongoDB?
-
-How does JWT authentication work in the application?
-
-How are protected routes implemented?
-
-How is admin authorization different from user authentication?
-
-How does the cart data flow from React to the backend?
-
-How are products stored in MongoDB?
-
-How does image upload work with Multer and Cloudinary?
-
-How does the order workflow work?
-
-How were Stripe and Razorpay integrated?
-
-Why should order totals be calculated on the server?
-
-How would you secure payment verification?
-
-How would you prevent users from accessing another user's order?
-
-How would you improve CORS security?
-
-How would you add automated testing?
-
-How would you scale product listing with pagination and filtering?
-
-👨‍💻 Author
-
-Lokesh M
+**Lokesh M**
 
 MERN Stack Developer
 
-GitHub:
-https://github.com/Lokesh3177
+- GitHub: https://github.com/Lokesh3177
+- LinkedIn: https://www.linkedin.com/in/lokeshm31
 
-LinkedIn:
-https://www.linkedin.com/in/lokeshm31
+---
 
-📄 Project Status
-
-Status: Portfolio / Learning Project
-
-The application demonstrates a complete full-stack e-commerce workflow
-while leaving clear opportunities for further security, testing,
-validation, and production hardening.
-
-⭐ If you find the project useful or interesting, feel free to explore
-the code and implementation.
+⭐ **Portfolio Project — built to demonstrate practical full-stack MERN development.**
